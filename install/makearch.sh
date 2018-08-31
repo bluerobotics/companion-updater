@@ -2,7 +2,7 @@
 
 # Install arch for the raspberry pi 3 on a disk (hopefully an sd card)
 
-
+pushd /tmp
 
 ###
 # Installation steps
@@ -57,5 +57,6 @@ sudo bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 sync
 sudo mv root/boot/* boot
 sudo umount boot root
+popd
 
 echo done

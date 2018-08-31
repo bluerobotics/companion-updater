@@ -60,14 +60,13 @@ ENDBLK=${ENDBLK%"MiB"}
 # arithmetic expansion operator (( ))
 ENDBLK=$(($ENDBLK + 1))
 
-echo $DISK
-echo $IMG
-echo $ENDBLK
+echo "copying $DISK to $IMG"
+echo "size is $ENDBLK MiB"
 
 # exit 99
 
 # units are in MiB (hopefully, as above)
 sudo dd if=$DISK of=$IMG bs=1M count=$ENDBLK status=progress
-
+sync
 exit 0
 
