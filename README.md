@@ -1,17 +1,44 @@
+# Companion Updater
+
+Disk partitions:
+
+- Boot - runs UBoot, The linux bootloader. This is configured to boot the companion installation first, and fall back to the recovery installation if companion fails to boot.
+- Recovery - Recovery and update management installation. This (archlinux) installation runs a simple apache webserver with php. The webserver allows uploading a compressed companion installation image, stores it in the staging partition, then extracts it over the existing companion installation
+- User (to be implemented) - User data for companion installation - This is for the user's files and configurations. This partition will not be affected during the recovery/update process, thus the user's files are persistent during updates.
+- Staging (to be implemented) filesystem to store compressed image to be burned
+- Companion (filesystem to run the companion installation)
+
 To copy an sd card:
 
-# Create diskimage IMG of the disk DISK (eg. /dev/sdg careful!)
-```
-$ sudo -u $USER bash ./copyarch.sh DISK IMG
-```
+
 
 # conf contains files to configure and run the webserver
 # these files are located according where they should be installed (copied) on the root filesystem
 
 # install contains scripts to install the system
 
+
+## Setup/Installation (wip, not complete)
 1. run makearch.sh
 2. put the sd card in the pi, connect it to your router
 3. ssh to the pi user alarm password alarm or use root/root
+4. move the initarch.sh from here to the pi
+4. run the initarch.sh on the pi
+4. Move files from conf here to / on the pi
+4. reboot or systemctl restart httpd
 4. visit pi ip address in browser to see webpage
 
+
+
+# Reference
+
+1. https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-3
+2. http://randombio.com/linuxsetup107.html
+
+
+# Use this to back up an SD card
+
+# Create diskimage IMG of the disk DISK (eg. /dev/sdg careful!)
+```
+$ sudo -u $USER bash ./copyarch.sh DISK IMG
+```

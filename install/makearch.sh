@@ -12,7 +12,12 @@ pushd /tmp
 # Create boot partition (100MiB, Win95 FAT32 LBA)
 # Create root partition (
 # Create 
-$DISK = $1
+DISK=$1
+
+#TODO check minimum disk size
+
+#TODO validate args
+COMPANIONIMG=$2
 
 sudo umount $1?*
 
@@ -30,6 +35,11 @@ echo p # p for primary
 echo 2 # Second partition
 echo   # First available block
 echo +4G  # 4G size
+echo n # Add a new partition
+echo p # p for primary
+echo 3 # Third partition
+echo   # First available block
+echo +4G  # 8G size
 echo p # Print results
 echo w # Write changes
 ) | sudo fdisk $1
@@ -57,6 +67,11 @@ sudo bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 sync
 sudo mv root/boot/* boot
 sudo umount boot root
+
+dd if=$COMPANIONIMG of=$13 bs=4M
+sync
+
+# Go back to previous directory
 popd
 
 echo done
