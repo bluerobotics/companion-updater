@@ -48,5 +48,30 @@ Ways in which we may want to expand the funcionality provided here
 
 # Create diskimage IMG of the disk DISK (eg. /dev/sdg careful!)
 ```
-$ sudo -u $USER bash ./copyarch.sh DISK IMG
+$ sudo bash ./copyarch.sh DISK IMG
 ```
+
+
+#Things I've tried
+
+$ p1 boot p2 arch p3 companion part
+results: companion part give error
+```
+/sbin/init does not exist
+bailing out, you are on your own
+```
+
+
+p1 boot p2 arch p3 arch (UUIDS were the same)
+boot in p3:
+results: success!
+
+remove uuid=3 from boot.txt
+results:
+
+```
+ERROR=device'PARTUUID=' not found. skipping fsck.
+```
+then i get logged into rootfs
+
+

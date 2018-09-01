@@ -14,10 +14,14 @@ pushd /tmp
 # Create 
 DISK=$1
 
+RECOVERYSIZE=2G
+COMPANIONSIZE=2G
+
 #TODO check minimum disk size
 
 #TODO validate args
-COMPANIONIMG=$2
+#TODO create arch installation with companion installed
+#COMPANIONIMG=$2
 
 sudo umount $1?*
 
@@ -34,12 +38,12 @@ echo n # Add a new partition
 echo p # p for primary
 echo 2 # Second partition
 echo   # First available block
-echo +4G  # 4G size
+echo +$RECOVERYSIZE  # size
 echo n # Add a new partition
 echo p # p for primary
 echo 3 # Third partition
 echo   # First available block
-echo +4G  # 8G size
+echo +$COMPANIONSIZE  # size
 echo p # Print results
 echo w # Write changes
 ) | sudo fdisk $1
@@ -65,6 +69,17 @@ wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
 sudo bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 
 sync
+
+#sudo pacstrap boot apache php php-intl php-apache
+
+arch-chroot root
+sudo pacman -S root apache php php-intl php-apache
+sudo systemctl enable httpd
+exit
+
+# move webserver files onto root
+sudo mv ../conf/* root
+
 sudo mv root/boot/* boot
 sudo umount boot root
 
