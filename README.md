@@ -35,6 +35,14 @@ To copy an sd card:
 1. https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-3
 2. http://randombio.com/linuxsetup107.html
 
+# Going further
+
+Ways in which we may want to expand the funcionality provided here
+
+1. uboot netconsole
+2. watchdog
+3. fallback support
+4. network booting
 
 # Use this to back up an SD card
 
