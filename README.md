@@ -5,26 +5,25 @@ Disk partitions:
 - Boot - runs UBoot, The linux bootloader. This is configured to boot the companion installation first, and fall back to the recovery installation if companion fails to boot.
 - Recovery - Recovery and update management installation. This (archlinux) installation runs a simple apache webserver with php. The webserver allows uploading a compressed companion installation image, stores it in the staging partition, then extracts it over the existing companion installation
 - User (to be implemented) - User data for companion installation - This is for the user's files and configurations. This partition will not be affected during the recovery/update process, thus the user's files are persistent during updates.
-- Staging (to be implemented) filesystem to store compressed image to be burned
-- Companion (filesystem to run the companion installation)
+- Staging (to be implemented) - filesystem to store compressed image to be burned
+- Companion - filesystem to run the companion installation
 
-To copy an sd card:
+./conf contains files to configure and run the webserver these files are located according where they should be installed (copied) on the root filesystem
 
-
-
-# conf contains files to configure and run the webserver
-# these files are located according where they should be installed (copied) on the root filesystem
-
-# install contains scripts to install the system
+./install contains scripts to install the system
 
 
-## Setup/Installation (wip, not complete)
-1. run makearch.sh <disk>
+## Setup/Installation
+1. <s>create directories /mnt/boot and /mnt/root</s>
+1. select an sd card at least 8G in size
+1. run `sudo ./makearch.sh /dev/sdX` to install everything on the disk (you might have to accept some proceed anyway requests during the filesystem creation)
 2. put the sd card in the pi, connect it to a monitor and a keyboard (and your router if you want)
 3. hold the spacebar down while the pi boots
-4. at the uboot command line enter setenv brpart <partition # to boot>
-4. at the uboot command line enter run bootcmd
+4. at the uboot command line enter `setenv brpart /dev/mmcblk0p2` or whatever partition you want to mount for root (this gets passed to the kernel as the `root=` option)
+4. at the uboot command line enter `run bootcmd`
 4. done!
+
+## more steps
 4. more steps to come... (this can probably be done easier using chroot)
 3. ssh to the pi user alarm password alarm or use root/root
 4. move the initarch.sh from here to the pi
@@ -32,6 +31,9 @@ To copy an sd card:
 4. Move files from conf here to / on the pi
 4. reboot or systemctl restart httpd
 4. visit pi ip address in browser to see webpage
+
+## problems
+libarchive is installed forcefully and leaves behind root folders in the project
 
 
 
