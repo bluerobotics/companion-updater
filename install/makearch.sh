@@ -23,30 +23,6 @@ COMPANIONSIZE=2G
 #TODO create arch installation with companion installed
 #COMPANIONIMG=$2
 
-sudo umount $1?*
-
-(
-echo o # Create a new empty DOS partition table
-echo n # Add a new partition
-echo p # Primary partition
-echo 1 # Partition number
-echo   # First sector (Accept default: 1)
-echo +100M # Last sector (Accept default: varies)
-echo t # Select type
-echo c # W95 FAT32 (LBA)
-echo n # Add a new partition
-echo p # p for primary
-echo 2 # Second partition
-echo   # First available block
-echo +$RECOVERYSIZE  # size
-echo n # Add a new partition
-echo p # p for primary
-echo 3 # Third partition
-echo   # First available block
-echo +$COMPANIONSIZE  # size
-echo p # Print results
-echo w # Write changes
-) | sudo fdisk $1
 
 sudo mkfs.vfat $11
 mkdir boot
