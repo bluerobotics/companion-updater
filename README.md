@@ -19,8 +19,13 @@ To copy an sd card:
 
 
 ## Setup/Installation (wip, not complete)
-1. run makearch.sh
-2. put the sd card in the pi, connect it to your router
+1. run makearch.sh <disk>
+2. put the sd card in the pi, connect it to a monitor and a keyboard (and your router if you want)
+3. hold the spacebar down while the pi boots
+4. at the uboot command line enter setenv brpart <partition # to boot>
+4. at the uboot command line enter run bootcmd
+4. done!
+4. more steps to come... (this can probably be done easier using chroot)
 3. ssh to the pi user alarm password alarm or use root/root
 4. move the initarch.sh from here to the pi
 4. run the initarch.sh on the pi

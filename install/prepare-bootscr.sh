@@ -11,7 +11,10 @@ mv $BOOTMNT/boot.txt $BOOTMNT/boot.txt.orig
 
 cp ../conf/boot.txt $BOOTMNT
 
-$BOOTMNT/makescr
+pushd $BOOTMNT
+
+./mkscr
+popd
 
 umount $BOOTMNT
 

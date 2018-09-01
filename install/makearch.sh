@@ -45,7 +45,9 @@ echo "installing arch..."
 echo "installing arch..."
 ./install-arch.sh $DISK $DISK3 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
 
-sync
+echo "preparing boot.scr..."
+./prepare-bootscr.sh $DISK1 $MOUNTDIR/$BOOTMNTPT
+
 
 #sudo pacstrap boot apache php php-intl php-apache
 
