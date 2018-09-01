@@ -1,8 +1,10 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Install arch for the raspberry pi 3 on a disk (hopefully an sd card)
 
-pushd /tmp
+MOUNTDIR="/tmp"
+BOOTMNTPT="boot"
+ROOTMNTPT="root"
 
 ###
 # Installation steps
@@ -23,49 +25,42 @@ COMPANIONSIZE=2G
 #TODO create arch installation with companion installed
 #COMPANIONIMG=$2
 
-prepare-disk.sh $DISK $RECOVERYSIZE $COMPANIONSIZE 
+echo "preparing disk..."
+./prepare-disk.sh $DISK $RECOVERYSIZE $COMPANIONSIZE
 
-exit 1
+echo "preparing filesystem..."
+./prepare-filesystem.sh $DISK
 
-sudo mkfs.vfat $11
-mkdir boot
-sudo mount $1 boot
+#exit 1
 
-mkfs.ext4 $12
-mkdir root
-sudo mount $12 root
 
-# https://github.com/helotism/helotism/issues/8#issuecomment-405390821
-# Thank you!
-wget https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz
-tar xzf libarchive-3.3.2.tar.gz
-cd libarchive-3.3.2
-./configure
-make
-sudo make install
 
-wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
-sudo bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
+
+echo "installing bsdtar..."
+./install-bsdtar.sh
+
+echo "installing arch..."
+./install-arch.sh $DISK $DISK2 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
+
+echo "installing arch..."
+./install-arch.sh $DISK $DISK3 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
 
 sync
 
 #sudo pacstrap boot apache php php-intl php-apache
 
-arch-chroot root
-sudo pacman -S root apache php php-intl php-apache
-sudo systemctl enable httpd
-exit
+#arch-chroot root
+#pacman -S root apache php php-intl php-apache
+#systemctl enable httpd
+#exit
 
 # move webserver files onto root
-sudo mv ../conf/* root
+#mv ../conf/* root
 
-sudo mv root/boot/* boot
-sudo umount boot root
 
-dd if=$COMPANIONIMG of=$13 bs=4M
-sync
 
-# Go back to previous directory
-popd
+#dd if=$COMPANIONIMG of=$13 bs=4M
+#sync
 
-echo done
+echo "done"
+

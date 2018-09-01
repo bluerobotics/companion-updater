@@ -1,4 +1,5 @@
-#!/usr/bin/env bash #lends you some flexibility on different systems
+#!/usr/bin/env bash
+#lends you some flexibility on different systems
 
 # https://stackoverflow.com/a/16365367
 # Thank you!
@@ -16,7 +17,10 @@ COMPANIONSIZE=$3
 # TODO replace companion size with staging size to indicate size for uploading
 # compressed images at the end of the disk. Then, create a partiion occupying
 # the remaining space between Recovery and Staging #STAGINGSIZE=
-sudo umount $DISK?*
+echo "unmounting $DISK..."
+umount $DISK?*
+
+echo "formatting $DISK..."
 
 (
 echo o # Create a new empty DOS partition table
@@ -39,5 +43,5 @@ echo   # First available block
 echo +$COMPANIONSIZE  # size
 echo p # Print results
 echo w # Write changes
-) | sudo fdisk $DISK
+) | fdisk $DISK
 
