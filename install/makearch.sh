@@ -2,7 +2,7 @@
 
 # Install arch for the raspberry pi 3 on a disk (hopefully an sd card)
 
-MOUNTDIR="/tmp"
+MOUNTDIR="/mnt"
 BOOTMNTPT="boot"
 ROOTMNTPT="root"
 
@@ -40,13 +40,13 @@ echo "installing bsdtar..."
 ./install-bsdtar.sh
 
 echo "installing arch..."
-./install-arch.sh $DISK $DISK2 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
+./install-arch.sh ${DISK}1 ${DISK}2 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
 
 echo "installing arch..."
-./install-arch.sh $DISK $DISK3 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
+./install-arch.sh ${DISK}1 ${DISK}3 $MOUNTDIR/$BOOTMNTPT $MOUNTDIR/$ROOTMNTPT
 
 echo "preparing boot.scr..."
-./prepare-bootscr.sh $DISK1 $MOUNTDIR/$BOOTMNTPT
+./prepare-bootscr.sh ${DISK}1 $MOUNTDIR/$BOOTMNTPT
 
 
 #sudo pacstrap boot apache php php-intl php-apache
