@@ -23,6 +23,9 @@ COMPANIONSIZE=2G
 #TODO create arch installation with companion installed
 #COMPANIONIMG=$2
 
+prepare-disk.sh $DISK $RECOVERYSIZE $COMPANIONSIZE 
+
+exit 1
 
 sudo mkfs.vfat $11
 mkdir boot

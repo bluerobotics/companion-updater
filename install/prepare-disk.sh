@@ -3,9 +3,15 @@
 # https://stackoverflow.com/a/16365367
 # Thank you!
 
+# creates a new DOS partition table (4 primary partitions allowed)
+# creates and labels 3 partitions:
+# 1. companion_boot: 100MiB
+# 2. companion_recover
+# 3. companion_run
 DISK=$1
 RECOVERYSIZE=$2
 COMPANIONSIZE=$3
+
 # not implemented
 # TODO replace companion size with staging size to indicate size for uploading
 # compressed images at the end of the disk. Then, create a partiion occupying
@@ -33,5 +39,5 @@ echo   # First available block
 echo +$COMPANIONSIZE  # size
 echo p # Print results
 echo w # Write changes
-) | sudo fdisk $1
+) | sudo fdisk $DISK
 
