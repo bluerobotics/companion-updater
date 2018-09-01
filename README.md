@@ -75,3 +75,11 @@ ERROR=device'PARTUUID=' not found. skipping fsck.
 then i get logged into rootfs
 
 
+
+
+```
+sudo bash ./prepare-disk.sh /dev/sdh 2G 2G
+```
+
+
+
